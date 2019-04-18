@@ -1,0 +1,42 @@
+@using The_Wall.Models
+@model Comments
+@for(int j = @ViewBag.AllMessages.Count-1; j >=0; j--)
+{
+    <tr>
+    <h1>@ViewBag.AllMessages[j].Message_Creator.FirstName @ViewBag.AllMessages[j].Message_Creator.LastName - @ViewBag.AllMessages[j].CreatedAt</h1>
+    <h2>@ViewBag.AllMessages[j].Message</h2>
+    </tr>
+    <br>
+    <br>
+    @if (@ViewBag.UserId == @ViewBag.AllMessages[j].UserID)
+    {
+        <a name="" id="" class="btn btn-primary" href="delete/@ViewBag.AllMessages[j].MessageID" role="button">Delete Message</a>
+    }
+
+    @for(int i = 0; i <= @ViewBag.AllComments.Count-1; i++)
+        {
+        @if (@ViewBag.AllComments[i].MessageID == @ViewBag.AllMessages[j].MessageID)
+        {
+        <table>
+            <tr>
+                <td>
+                    <h5>@ViewBag.AllComments[i].Comment_Creator.FirstName - @ViewBag.AllComments[i].CreatedAt </h5>
+                    <h6>@ViewBag.AllComments[i].Comment</h6>
+                </td>
+            </tr>
+        </table>
+        }
+        }
+<form asp-action="CreateComment" asp-controller="Home" method="POST">
+        <span asp-validation-for="Comment"></span>
+        <h2><label for="inputlg"asp-for="Comment"></label></h2>
+        <br>
+        <input class="form-control input-lg"id="inputlg" asp-for="Comment">
+        <br><br>
+        <input type="hidden" name="MessageID" value="@ViewBag.AllMessages[j].MessageID">
+        <input type="hidden" name="UserID" value="@ViewBag.UserId">
+        <button type="submit" class="btnbtn-primary">Post a comment</button>
+    </form>
+}
+
+

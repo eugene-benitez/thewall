@@ -1,0 +1,29 @@
+@using The_Wall.Models
+@model Messages
+
+<style>
+    h1 {
+        border-bottom: 2px solid black;
+    }
+
+    h2 {
+        font-size: 2.0em;
+    }
+
+</style>
+<h1>CodingDojo Wall</h1>
+<a href="/"><h2>Log Out</h2></a>
+<br>
+
+<form asp-action="CreateMessage" asp-controller="Home" method="POST">
+            <span asp-validation-for="Message"></span>
+            <h2><label for="inputlg" asp-for="Message"></label></h2>
+            <br>
+            <input class="form-control input-lg" id="inputlg" asp-for="Message">
+            <br><br>
+            <button type="submit" class="btn btn-primary">Post a message</button>
+</form>
+
+<table class="table">
+<partial name="CommentPartial" />
+</table>
